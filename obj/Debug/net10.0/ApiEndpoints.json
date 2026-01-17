@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "AJPS_API.Controllers.JobsController",
+    "Method": "TestComm",
+    "RelativePath": "api/Jobs/testcomm",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jobLength",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

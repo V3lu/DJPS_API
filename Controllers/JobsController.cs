@@ -7,6 +7,14 @@ namespace AJPS_API.Controllers
     [ApiController]
     public class JobsController : ControllerBase
     {
+        public JobsController() { }
 
+        [HttpPost]
+        [Route("testcomm")]
+        public async Task<IActionResult> TestComm([FromBody] int jobLength)
+        {
+            int tryme = jobLength;
+            return Ok(tryme);
+        }
     }
 }

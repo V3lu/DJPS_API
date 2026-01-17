@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D163B7B2-1D91-4283-8B49-82851881F173}|AJPS_API.csproj|c:\\users\\aethi\\source\\repos\\ajps_api\\controllers\\jobscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D163B7B2-1D91-4283-8B49-82851881F173}|AJPS_API.csproj|solutionrelative:controllers\\jobscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|c:\\users\\aethi\\source\\repos\\ajps_api\\controllers\\jobscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|solutionrelative:controllers\\jobscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D163B7B2-1D91-4283-8B49-82851881F173}|AJPS_API.csproj|c:\\users\\aethi\\source\\repos\\ajps_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D163B7B2-1D91-4283-8B49-82851881F173}|AJPS_API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|c:\\users\\aethi\\source\\repos\\ajps_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -104,7 +104,7 @@
               "RelativeDocumentMoniker": "Controllers\\JobsController.cs",
               "ToolTip": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Controllers\\JobsController.cs",
               "RelativeToolTip": "Controllers\\JobsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-16T10:11:53.908Z",
               "EditorCaption": ""
@@ -117,7 +117,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-16T10:11:07.755Z",
               "EditorCaption": ""
