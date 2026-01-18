@@ -15,7 +15,7 @@ namespace AJPS_API.Controllers
         {
             for (int i = 0; i < jobLength; i++)
             {
-                await Task.Delay(500);
+                await Task.Delay(100);
                 yield return $"Step {i} completed";
             }
         }
