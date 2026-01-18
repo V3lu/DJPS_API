@@ -11,10 +11,13 @@ namespace AJPS_API.Controllers
 
         [HttpPost]
         [Route("testcomm")]
-        public async Task<IActionResult> TestComm([FromBody] int jobLength)
+        public async IAsyncEnumerable<string> TestComm([FromBody] int jobLength)
         {
-            int tryme = jobLength;
-            return Ok(tryme);
+            for (int i = 0; i < jobLength; i++)
+            {
+                await Task.Delay(1000);
+                yield return $"Step {i} completed\n";
+            }
         }
     }
 }
