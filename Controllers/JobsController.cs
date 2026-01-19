@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AJPS_API.Controllers
 {
@@ -15,8 +14,19 @@ namespace AJPS_API.Controllers
         {
             for (int i = 0; i < jobLength; i++)
             {
-                await Task.Delay(100);
+                await Task.Delay(100); //Simulate job
                 yield return $"Step {i} completed";
+            }
+        }
+
+        [HttpPost]
+        [Route("intStream")]
+        public async IAsyncEnumerable<int> IntStream([FromBody] int jobLength)
+        {
+            for (int i = 0; i < jobLength; i++)
+            {
+                await Task.Delay(500); //Simulate job
+                yield return i;
             }
         }
     }
