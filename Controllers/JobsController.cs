@@ -300,5 +300,11 @@ namespace AJPS_API.Controllers
             await Task.Delay(3000);
             Console.WriteLine("Data downloaded");
         }
+
+        public async Task<string> SimulateTaskAsync()
+        {
+            await Task.Delay(1000);
+            return "Work completed";
+        }
     }
 }
