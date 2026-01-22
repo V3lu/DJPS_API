@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
 
 namespace AJPS_API.Controllers
 {
@@ -59,7 +60,7 @@ namespace AJPS_API.Controllers
         {
             return text?.ToUpper() ?? "Lack of data";
         }
-            
+
         public List<IGrouping<string?, Employee>> Ret2(List<Employee> employees)
         {
             return employees.GroupBy(eb => eb.Department).ToList();
@@ -67,7 +68,7 @@ namespace AJPS_API.Controllers
 
         public List<DeptSalaryResult> Ret3(List<Employee> employees)
         {
-            return employees.GroupBy(eb => eb.DepartmentId).Select(eb => new DeptSalaryResult{ DeptId = eb.Key, AvgSalary = eb.Average(b => b.Salary)}).ToList();
+            return employees.GroupBy(eb => eb.DepartmentId).Select(eb => new DeptSalaryResult { DeptId = eb.Key, AvgSalary = eb.Average(b => b.Salary) }).ToList();
         }
 
         public List<string> Ret4(List<Employee> employees, List<Department> departments)
@@ -116,7 +117,7 @@ namespace AJPS_API.Controllers
         {
             List<int> ret = list.Where(eb => eb % 2 != 0).Reverse().ToList();
             return ret;
-            
+
         }
 
         public bool CanEnterClub(int age, bool hasReservation, bool isVip)
@@ -186,6 +187,118 @@ namespace AJPS_API.Controllers
                     ProductName = group.Key,
                     TotalRevenue = group.Sum(eb => eb.sale.Quantity * eb.prod.Price)
                 }).ToList();
+        }
+
+        public class StudentGrade
+        {
+            public string Name { get; private set; }
+            public int? Score { get; private set; }
+        }
+
+        public void PrintResult(StudentGrade student)
+        {
+            string displayScore = student.Score?.ToString() ?? "Lack of mark";
+            Console.WriteLine($"Student received {displayScore}");
+        }
+
+        public void BirthdayInfo(DateTime birthDate)
+        {
+            string readText = System.IO.File.ReadAllText("pathToFile");
+        }
+
+        public void TryOpenFile(string path)
+        {
+            try
+            {
+                string content = System.IO.File.ReadAllText(path);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("End of operation");
+            }
+        }
+
+        public record UserDTO(string firstName, string lastName);
+
+        public void Ret7()
+        {
+            UserDTO userDTO = new UserDTO(firstName: "das", lastName: "das");
+            userDTO.firstName = "dsa";  //Compilator does not allow it
+            var user2 = userDTO with { firstName = "dasfas" };
+        }
+
+        public List<string> Ret8(List<string> names)
+        {
+            return names.Select(eb => eb.Trim()).Select(eb => eb.ToUpper()).OrderBy(eb => eb).ToList();
+        }
+        Dictionary<string, decimal> prices = new() { { "Chleb", 4.50m }, { "Mleko", 3.20m } }
+        public void PrintPrice(string productName)
+        {
+            if (prices.TryGetValue(productName, out decimal price))
+            {
+                Console.WriteLine($"Price: {price}");
+            }
+            else
+            {
+                Console.WriteLine("No such an item");
+            }
+        }
+
+        public interface IDiscountStrategy
+        {
+            decimal ApplyDiscount(decimal price);
+        }
+
+        public class PercentageDiscount : IDiscountStrategy
+        {
+            public decimal ApplyDiscount(decimal price)
+            {
+                return price * 0.9m;
+            }
+        }
+
+        public class FixedDiscount : IDiscountStrategy
+        {
+            public decimal ApplyDiscount(decimal price)
+            {
+                return price - 5m;
+            }
+        }
+
+        public void Temperature(double? currentTemp)
+        {
+            double temp = currentTemp ?? 0.0;
+
+            if (temp > 25.0)
+            {
+                Console.WriteLine("Turn on air conditioning");
+            }
+            else
+            {
+                Console.WriteLine("Temperature at the normal rate");
+            }
+        }
+
+        public record Car(string Brand, int Year);
+
+        List<Car> cars = new List<Car>
+        {
+            new Car("Audi", 2010),
+            new Car("Toyota", 2020),
+            new Car("Fiat", 2005)
+        };
+
+        List<Car> oldCars = cars.Where(eb => eb.Year < 2015).Select(eb => eb with { Brand = "Old " + eb.Brand}).ToList();
+
+        public async Task DownloadDataAsync()
+        {
+            Console.WriteLine("Download started");
+            await Task.Delay(3000);
+            Console.WriteLine("Data downloaded");
         }
     }
 }
