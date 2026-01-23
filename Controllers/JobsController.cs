@@ -3,6 +3,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace AJPS_API.Controllers
 {
@@ -10,6 +11,7 @@ namespace AJPS_API.Controllers
     public record Department(int Id, string DepartmentName);
     public record DeptSalaryResult(int DeptId, decimal AvgSalary);
     public enum Season { Spring, Summer, Autumn, Winter }
+    public record Product(string Name, string Category, decimal Price);
     public class Book
     {
         public string Title { get; set; }
@@ -150,13 +152,6 @@ namespace AJPS_API.Controllers
             Console.WriteLine(Path.GetFileName(path));
             Console.WriteLine(Path.GetFileNameWithoutExtension(path));
             Console.WriteLine(Path.GetExtension(path));
-        }
-
-        public class Product
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public decimal Price { get; set; }
         }
 
         public class Sale
@@ -306,5 +301,90 @@ namespace AJPS_API.Controllers
             await Task.Delay(1000);
             return "Work completed";
         }
+
+        public async Task<int> GetStockAmountAsync(string productName)
+        {
+            await Task.Delay(1500);
+
+            if (productName == "Laptop")
+            {
+                return 5;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public class InsufficientFundsException : Exception
+        {
+            public InsufficientFundsException(string message) : base(message)
+            {
+                
+            }
+        }
+
+        public void Withdraw(decimal balance, decimal amount)
+        {
+            try
+            {
+                if (amount > balance)
+                {
+                    throw new InsufficientFundsException("Lack of funds");
+                }
+            }
+            catch (InsufficientFundsException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        public class DataStorage<T>
+        {
+            private List<T> _list;
+
+            public void Add(T item)
+            {
+                _list.Add(item);
+            }
+
+            public T? GetLast()
+            {
+                if (_list.Count != 0)
+                {
+                    return _list[_list.Count - 1];
+                }
+                else
+                {
+                    return default;
+                }
+            }
+
+            public List<T> FindAll(Predicate<T> match)
+            {
+                return _list.FindAll(match);
+            }
+        }
+
+        public void CreateObjects()
+        {
+            DataStorage<int> ints = new();
+            DataStorage<string> strings = new();
+
+            strings.FindAll(eb => eb.Equals(string.Empty)).ToList();
+        }
+
+        public void FindCategory()
+        {
+            List<Product> products = new List<Product> 
+            {
+                new ("Jabłko", "Owoce", 2.5m),
+                new ("Banan", "Owoce", 3.0m),
+                new ("Chleb", "Pieczywo", 4.0m),
+                new ("Bułka", "Pieczywo", 1.0m)
+            };
+
+            Console.WriteLine(products.GroupBy(eb => eb.Category).Select(group => new { Category = group.Key, AvgPrice = group.Average(eb => eb.Price) }).ToList());
+        }
+
     }
 }
