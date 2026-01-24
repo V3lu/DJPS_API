@@ -4,10 +4,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace AJPS_API.Controllers
 {
-    public record Employee(int Id, string Name, int DepartmentId, decimal Salary);
     public record Department(int Id, string DepartmentName);
     public record DeptSalaryResult(int DeptId, decimal AvgSalary);
     public enum Season { Spring, Summer, Autumn, Winter }
@@ -186,6 +186,7 @@ namespace AJPS_API.Controllers
 
         public class StudentGrade
         {
+            private string name;
             public string Name { get; private set; }
             public int? Score { get; private set; }
         }
@@ -386,5 +387,233 @@ namespace AJPS_API.Controllers
             Console.WriteLine(products.GroupBy(eb => eb.Category).Select(group => new { Category = group.Key, AvgPrice = group.Average(eb => eb.Price) }).ToList());
         }
 
+        public void SecureExecute(Action action)
+        {
+            Console.WriteLine("Starting operation");
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.ToString());
+            }
+            finally
+            {
+                Console.WriteLine("Operation finished");
+            }
+        }
+
+        public event Action OnClick;
+
+        public void Press()
+        {
+            OnClick?.Invoke();
+        }
+
+        public void Code()
+        {
+            Console.WriteLine("Invoking Action");
+            this.OnClick += () => Console.WriteLine("Akcja 1");
+
+            this.Press();
+        }
+
+        public class Box<T>
+        {
+            public event Action<T>? OnItemStored;
+
+            void Store(T item)
+            {
+                OnItemStored?.Invoke(item);
+            }
+        }
+
+        public double Calculate(double a, double b, Func<double, double, double> operation)
+        {
+            return operation(a, b);
+        }
+
+        Calculate(5, 6, (a, b) => a * b);
+
+        public static List<TResult> MyMap<TSource, TResult>(List<TSource> source, Func<TSource, TResult> transform)
+        {
+
+            List<TResult> list = new();
+
+            foreach (TSource sourceItem in source)
+            {
+                list.Add(transform(sourceItem));
+            }
+
+            List<Func<string, string>> processors = new();
+
+            processors.Add((str) => str.Trim());
+            processors.Add((str) => str.ToUpper());
+            processors.Add((str) => str + '.');
+            string user = "User ";
+            foreach (var func in processors)
+            {
+                func(user);
+            }
+        }
+
+        public static List<T> MyFilter<T>(List<T> source, Func<T, bool> condition)
+        {
+            List<T> ret = new();
+
+            foreach (T item in source)
+            {
+                if (condition(item))
+                {
+                    ret.Add(item);
+                }
+            }
+            return ret;
+        }
+
+        public Dictionary<string, int> CountWords(List<string> words)
+        {
+            Dictionary<string, int> counts = new();
+
+            foreach (string word in words)
+            {
+                if (counts.ContainsKey(word))
+                {
+                    counts[word]++;
+                }
+                else
+                {
+                    counts[word] = 1;
+                }
+            }
+
+            return counts;
+        }
+
+        public void TryParseInt()
+        {
+            string? input = Console.ReadLine();
+
+            if (int.TryParse(input, out int result))
+            {
+                if (result > 0)
+                {
+                    Console.WriteLine("Well done");
+                }
+                else
+                {
+                    Console.WriteLine("Too small number");
+                }
+            }
+            else
+            {
+                Console.WriteLine("This is not a number!");
+            }
+        }
+
+        public interface IMessageSender
+        {
+            void Send(string message);
+        }
+
+        public class EmailSender : IMessageSender
+        {
+            public void Send(string message)
+            {
+                Console.WriteLine($"Sending Email {message}");
+            }
+        }
+
+        public class SMSSender : IMessageSender
+        {
+            public void Send(string message)
+            {
+                Console.WriteLine($"Sending Sms {message}");
+            }
+        }
+
+        public void Logic()
+        {
+            List<IMessageSender> senders = new();
+
+            EmailSender es = new();
+            SMSSender smss = new();
+
+            senders.Add(es);
+            senders.Add(smss);
+
+            foreach (var obj in senders)
+            {
+                obj.Send("Message");
+            }
+        }
+
+        public class UserAccount
+        {
+            private string _password;
+            public string Password { 
+                set
+                {
+                    if (value.Length < 6)
+                    {
+                        Console.WriteLine("Error - too short password");
+                    }
+                    else
+                    {
+                        _password = value;
+                    }
+                }
+            }
+
+            public string Username { get; set; }
+        }
+
+        public class Employee
+        {
+            public string Name { get; set; }
+            public decimal Salary { get; set; }
+            public Employee(string name, decimal salary)
+            {
+                this.Salary = salary;
+                this.Name = name;
+            }
+
+            public virtual void WriteSalary()
+            {
+                Console.WriteLine(this.Salary.ToString());
+            }
+        }
+
+        public class Manager : Employee
+        {
+            public decimal Bonus { get; set; }
+            public Manager(string name, decimal salary, decimal bonus) : base(name, salary)
+            {
+                this.Bonus = bonus;
+            }
+
+            public override void WriteSalary()
+            {
+                Console.WriteLine(Salary * Bonus);
+            }
+        }
+
+        public enum DayCategory { Workday, Holiday }
+
+        public DayCategory DayOfWeek(DayOfWeek day) => day switch
+        {
+            System.DayOfWeek.Monday => DayCategory.Workday,
+            System.DayOfWeek.Tuesday => DayCategory.Workday,
+            _ => DayCategory.Workday
+        };
+
+        public static class Mathhelper
+        {
+            public static double CalculateAverage(List<int> numbers)
+            {
+                if (numbers.Count != 0 || numbers is not null) return 0; else return numbers.Average();
+            }
+        }
     }
 }
