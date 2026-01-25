@@ -615,5 +615,127 @@ namespace AJPS_API.Controllers
                 if (numbers.Count != 0 || numbers is not null) return 0; else return numbers.Average();
             }
         }
+
+        public class Student
+        {
+            public string Name { get; set; }
+            public double Grade { get; set; }
+        }
+
+        public void Logic2(List<Student> students)
+        {
+            var studentsGrouped = students.GroupBy(x => x.Grade).Select(group => new { Grade = group.Key, Students = group.ToList()}).ToList();
+        }
+
+        public class Author
+        {
+            public string Name { get; set; }
+            public List<string> Books { get; set; }
+        }
+
+        public void Logic3(List<Author> authors)
+        {
+            var query = authors.SelectMany(x => x.Books, (author, bookName) => new { author, bookName}).ToList();
+        }
+
+        public void Logic4()
+        {
+            var users = new[] {
+                new { Id = 1, Name = "Jan" },
+                new { Id = 2, Name = "Anna" }
+            };
+
+            var orders = new[] {
+                new { UserId = 1, Product = "Laptop" },
+                new { UserId = 2, Product = "Myszka" },
+                new { UserId = 1, Product = "Monitor" }
+            };
+
+            var query = users.Join(orders, user => user.Id, order => order.UserId, (user, order) => new { user.Name, order.Product }).ToList();
+        }
+
+        public void Logic5()
+        {
+            var staff = new[] {
+                new { Name = "Adam", Dept = "IT", Salary = 8000 },
+                new { Name = "Ewa", Dept = "HR", Salary = 5000 },
+                new { Name = "Marek", Dept = "IT", Salary = 12000 },
+                new { Name = "Zosia", Dept = "HR", Salary = 7000 }
+            };
+
+            // Twoje zadanie: posortuj po Dept (rosnąco), a potem po Salary (malejąco)
+            var sortedStaff = staff.OrderBy(x => x.Dept).ThenByDescending(x => x.Salary).ToList();
+        }
+
+        public void Logic6()
+        {
+            int[] nums = { 2, 3, 4 };
+            string[] names = ["Ania", "Tomek", "Ola"];
+
+            var query = nums.Aggregate((acc, next) => acc * next);
+            string oneBigString = names.Aggregate((acc, next) => acc + ", " + next);
+        }
+
+        public async Task<string> DataDownloaderSimulator()
+        {
+            Console.WriteLine("Downloading data from server");
+
+            await Task.Delay(2000);
+
+            Console.WriteLine("Downloading finished");
+            return "Data from server";
+        }
+
+        public async Task Logic7()
+        {
+            string data = await DataDownloaderSimulator();
+        }
+
+        public async Task Logic8()
+        {
+            var data = DataDownloaderSimulator();
+            var data1 = DataDownloaderSimulator();
+            var data2 = DataDownloaderSimulator();
+
+            string[] results = await Task.WhenAll(data1, data2, data);
+        }
+
+        public long HeavyCalculation()
+        {
+            long sumLocal = 0L;
+            for (int i = 0; i < 1000000000; i++)
+            {
+                sumLocal += i;
+            }
+            return sumLocal;
+        }
+
+        public async Task Logic9()
+        {
+            await Task.Run(() => HeavyCalculation());
+        }
+
+        public async Task InfiniteDownloader(CancellationToken ct)
+        {
+            try
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    await Task.Delay(500, ct);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        public async Task Logic10()
+        {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            InfiniteDownloader(cts.Token);
+            await Task.Delay(2000);
+            cts.Cancel();
+        }
     }
 }
