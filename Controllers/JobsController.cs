@@ -143,7 +143,7 @@ namespace AJPS_API.Controllers
         public string GetStatusMessage(Season season) => season switch
         {
             Season.Spring => "Spring",
-            Season.Summer => "summer",
+            Season.Summer => "Summer",
             _ => "Default"
         };
 
@@ -170,18 +170,17 @@ namespace AJPS_API.Controllers
 
             var sales = new List<Sale>
             {
-                new Sale { ProductId = 1, Quantity = 2 }, // 40 zł
-                new Sale { ProductId = 1, Quantity = 3 }, // 60 zł -> Razem Kawa: 100 zł
-                new Sale { ProductId = 2, Quantity = 1 }  // 15 zł -> Razem Herbata: 15 zł
+                new Sale { ProductId = 1, Quantity = 2 },
+                new Sale { ProductId = 1, Quantity = 3 }, 
+                new Sale { ProductId = 2, Quantity = 1 }  
             };
 
-            // TWOJE ZADANIE: Napisz zapytanie LINQ
             var result = products.Join(sales, prod => prod.Id, sale => sale.ProductId, (prod, sale) => new { prod, sale }).GroupBy(eb => eb.prod.Name).Select(
                 group => new
                 {
                     ProductName = group.Key,
                     TotalRevenue = group.Sum(eb => eb.sale.Quantity * eb.prod.Price)
-                }).ToList();
+                }).Where(x => x.TotalRevenue > 1000).ToList();
         }
 
         public class StudentGrade
@@ -737,5 +736,128 @@ namespace AJPS_API.Controllers
             await Task.Delay(2000);
             cts.Cancel();
         }
+
+        public class Sale1 
+        {
+            public string Product {  get; set; }
+            public double Price { get; set; }
+            public string Category { get; set; }
+        }
+
+        public void Logic10(List<Sale1> sales)
+        {
+            var query = sales.Where(x => x.Category == "Elektronika").OrderByDescending(x => x.Price).Take(3);
+        }
+
+        public class Game
+        {
+            public string Title { get; set; }
+            public string Genre { get; set; }
+            public double Rating { get; set; }
+        }
+
+        public void Logic11(List<Game> games)
+        {
+            var query = games.GroupBy(x => x.Genre).Select(group => new { Genre = group.Key, AvgRating = group.Average(y => y.Rating), Count = group.Count() }).ToList();
+        }
+        public class User1
+        {
+            public int Id { get; set; }
+            public string Username { get; set; }
+        }
+
+        public void Logic12(List<User1> users)
+        {
+            var query = users.DistinctBy(x => x.Id).ToDictionary(x => x.Id, x => x.Username);
+        }
+
+        public List<Product> GetPage(List<Product> products)
+        {
+            int pageNumber = 4;
+            int pageSize = 15;
+
+            return products.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public void Logic13()
+        {
+            var numbers = new List<int> { 5, 8, 12, 15, 20 };
+
+            var query1 = numbers.Where(x => x % 7 == 0).FirstOrDefault();
+            var query2 = numbers.Where(x => x == 15).SingleOrDefault();
+            var query3 = numbers.Where(x => x < 10).LastOrDefault();
+
+            string[] names = { "Ania", "Tomek", "Jan" };
+            int[] ages = { 20, 25, 30 };
+
+            var query4 = names.Zip(ages, (name, age) => $"{name} is {age} years old").ToList();
+        }
+
+        public delegate double Obliczenie(double a, double b);
+        public void Logic14()
+        {
+            WykonajOperacje(1, 2, (x, y) =>  x + y);
+            WykonajOperacje(1, 2, Math.Pow);
+            WykonajOperacje(1, 2, Subtract);
+
+        }
+
+        public void WykonajOperacje(double a, double b, Func<double, double, double> operacja)
+        {
+            Console.WriteLine(operacja(a, b));
+        }
+
+        public double Subtract(double a, double b) => a - b;
+
+        public delegate bool WarunekHasla(string h);
+
+        public void Sprawdz()
+        {
+            string mojeHaslo = "12345";
+
+            var listaWarunkow = new List<WarunekHasla>
+            {
+                h => h.Length > 8,
+                h => h.Any(char.IsDigit)
+            };
+
+            bool wynik = Waliduj(mojeHaslo, listaWarunkow);
+            Console.WriteLine($"Czy hasło przeszło? {wynik}");
+        }
+
+        public bool Waliduj(string haslo, List<WarunekHasla> warunki)
+        {
+            // TWOJE ZADANIE:
+            // Przejdź pętlą przez 'warunki'. 
+            // Każdy 'warunek' to funkcja, którą wywołujesz przekazując 'haslo'.
+            // Jeśli którykolwiek zwróci false -> zwróć false.
+            foreach (WarunekHasla warunek in warunki)
+            {
+                bool wynik = warunek(haslo);
+                if (!wynik)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public delegate void Logowanie(string wiadomosc);
+
+        public void ZadanieMulticast()
+        {
+            // 1. Stwórz instancję delegatu przypisując pierwszą metodę
+            Logowanie mojLogger = Metoda1;
+
+            // 2. TODO: Za pomocą operatora += dołącz Metoda2 do mojLogger
+            mojLogger += Metoda2;
+
+            // 3. Wywołaj mojLogger raz z dowolnym napisem
+            mojLogger("Hello world");
+            // Powinieneś zobaczyć w konsoli dwa napisy!
+        }
+
+        public void Metoda1(string m) => Console.WriteLine($"Zapisano do pliku: {m}");
+        public void Metoda2(string m) => Console.WriteLine($"Wysłano do bazy: {m}");
     }
 }

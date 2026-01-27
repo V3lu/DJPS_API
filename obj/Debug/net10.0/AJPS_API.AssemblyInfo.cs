@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AJPS_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ce105758c69ab4d904f98372e7714d2bd0ebb44")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+daa4072310d26a26c87c2b2fee47e90cb5abefdb")]
 [assembly: System.Reflection.AssemblyProductAttribute("AJPS_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AJPS_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|solutionrelative:controllers\\jobscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|c:\\users\\aethi\\source\\repos\\ajps_api\\controllers\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|solutionrelative:controllers\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|c:\\users\\aethi\\source\\repos\\ajps_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F75068F5-A1E6-65FB-49E4-D4FB87A1C98A}|AJPS_API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 19,
+          "SelectedChildIndex": 20,
           "Children": [
             {
               "$type": "Bookmark",
@@ -98,20 +102,32 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Tests.cs",
+              "DocumentMoniker": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Controllers\\Tests.cs",
+              "RelativeDocumentMoniker": "Controllers\\Tests.cs",
+              "ToolTip": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Controllers\\Tests.cs",
+              "RelativeToolTip": "Controllers\\Tests.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T16:35:45.195Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "JobsController.cs",
               "DocumentMoniker": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Controllers\\JobsController.cs",
               "RelativeDocumentMoniker": "Controllers\\JobsController.cs",
               "ToolTip": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Controllers\\JobsController.cs",
               "RelativeToolTip": "Controllers\\JobsController.cs",
-              "ViewState": "AgIAAEsCAAAAAAAAAAA5wGECAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACcDAAAAAAAAAAAIwD0DAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-16T10:11:53.908Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
