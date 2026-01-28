@@ -171,8 +171,8 @@ namespace AJPS_API.Controllers
             var sales = new List<Sale>
             {
                 new Sale { ProductId = 1, Quantity = 2 },
-                new Sale { ProductId = 1, Quantity = 3 }, 
-                new Sale { ProductId = 2, Quantity = 1 }  
+                new Sale { ProductId = 1, Quantity = 3 },
+                new Sale { ProductId = 2, Quantity = 1 }
             };
 
             var result = products.Join(sales, prod => prod.Id, sale => sale.ProductId, (prod, sale) => new { prod, sale }).GroupBy(eb => eb.prod.Name).Select(
@@ -287,7 +287,7 @@ namespace AJPS_API.Controllers
             new Car("Fiat", 2005)
         };
 
-        List<Car> oldCars = cars.Where(eb => eb.Year < 2015).Select(eb => eb with { Brand = "Old " + eb.Brand}).ToList();
+        List<Car> oldCars = cars.Where(eb => eb.Year < 2015).Select(eb => eb with { Brand = "Old " + eb.Brand }).ToList();
 
         public async Task DownloadDataAsync()
         {
@@ -320,7 +320,7 @@ namespace AJPS_API.Controllers
         {
             public InsufficientFundsException(string message) : base(message)
             {
-                
+
             }
         }
 
@@ -375,7 +375,7 @@ namespace AJPS_API.Controllers
 
         public void FindCategory()
         {
-            List<Product> products = new List<Product> 
+            List<Product> products = new List<Product>
             {
                 new ("Jabłko", "Owoce", 2.5m),
                 new ("Banan", "Owoce", 3.0m),
@@ -433,7 +433,7 @@ namespace AJPS_API.Controllers
             return operation(a, b);
         }
 
-        Calculate(5, 6, (a, b) => a * b);
+        Calculate(5, 6, (a, b) => a* b);
 
         public static List<TResult> MyMap<TSource, TResult>(List<TSource> source, Func<TSource, TResult> transform)
         {
@@ -551,7 +551,7 @@ namespace AJPS_API.Controllers
         public class UserAccount
         {
             private string _password;
-            public string Password { 
+            public string Password {
                 set
                 {
                     if (value.Length < 6)
@@ -623,7 +623,7 @@ namespace AJPS_API.Controllers
 
         public void Logic2(List<Student> students)
         {
-            var studentsGrouped = students.GroupBy(x => x.Grade).Select(group => new { Grade = group.Key, Students = group.ToList()}).ToList();
+            var studentsGrouped = students.GroupBy(x => x.Grade).Select(group => new { Grade = group.Key, Students = group.ToList() }).ToList();
         }
 
         public class Author
@@ -634,7 +634,7 @@ namespace AJPS_API.Controllers
 
         public void Logic3(List<Author> authors)
         {
-            var query = authors.SelectMany(x => x.Books, (author, bookName) => new { author, bookName}).ToList();
+            var query = authors.SelectMany(x => x.Books, (author, bookName) => new { author, bookName }).ToList();
         }
 
         public void Logic4()
@@ -737,9 +737,9 @@ namespace AJPS_API.Controllers
             cts.Cancel();
         }
 
-        public class Sale1 
+        public class Sale1
         {
-            public string Product {  get; set; }
+            public string Product { get; set; }
             public double Price { get; set; }
             public string Category { get; set; }
         }
@@ -796,7 +796,7 @@ namespace AJPS_API.Controllers
         public delegate double Obliczenie(double a, double b);
         public void Logic14()
         {
-            WykonajOperacje(1, 2, (x, y) =>  x + y);
+            WykonajOperacje(1, 2, (x, y) => x + y);
             WykonajOperacje(1, 2, Math.Pow);
             WykonajOperacje(1, 2, Subtract);
 
@@ -851,6 +851,7 @@ namespace AJPS_API.Controllers
 
             // 2. TODO: Za pomocą operatora += dołącz Metoda2 do mojLogger
             mojLogger += Metoda2;
+            mojLogger += Metoda3;
 
             // 3. Wywołaj mojLogger raz z dowolnym napisem
             mojLogger("Hello world");
@@ -859,5 +860,6 @@ namespace AJPS_API.Controllers
 
         public void Metoda1(string m) => Console.WriteLine($"Zapisano do pliku: {m}");
         public void Metoda2(string m) => Console.WriteLine($"Wysłano do bazy: {m}");
+        public void Metoda3(string m) => Console.WriteLine($"Odebrano z bazy {m}");
     }
 }

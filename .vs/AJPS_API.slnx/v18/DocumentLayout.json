@@ -108,9 +108,10 @@
               "RelativeDocumentMoniker": "Controllers\\Tests.cs",
               "ToolTip": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Controllers\\Tests.cs",
               "RelativeToolTip": "Controllers\\Tests.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBMAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T16:35:45.195Z"
+              "WhenOpened": "2026-01-25T16:35:45.195Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -120,7 +121,7 @@
               "RelativeDocumentMoniker": "Controllers\\JobsController.cs",
               "ToolTip": "C:\\Users\\aethi\\source\\repos\\AJPS_API\\Controllers\\JobsController.cs",
               "RelativeToolTip": "Controllers\\JobsController.cs",
-              "ViewState": "AgIAACcDAAAAAAAAAAAIwD0DAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAADoDAAAAAAAAAAAmwFUDAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-16T10:11:53.908Z",
               "EditorCaption": ""
