@@ -861,5 +861,70 @@ namespace AJPS_API.Controllers
         public void Metoda1(string m) => Console.WriteLine($"Zapisano do pliku: {m}");
         public void Metoda2(string m) => Console.WriteLine($"Wysłano do bazy: {m}");
         public void Metoda3(string m) => Console.WriteLine($"Odebrano z bazy {m}");
+
+        public static async Task Logic15()
+        {
+            Console.WriteLine("Start programu...");
+            Task<string> download = PobierzDaneAsync();
+
+            Console.WriteLine("Robię inne rzeczy, podczas gdy dane się pobierają...");
+
+            string wynik = await download;
+
+            Console.WriteLine($"Odebrano: {wynik}");
+        }
+
+        public static async Task<string> PobierzDaneAsync()
+        {
+            await Task.Delay(2000);
+            return "Dane z bazy: Użytkownik Jan";
+        }
+
+        public class BankAccount
+        {
+            private decimal _balance;
+
+            // 1. Właściwość (Property) - tylko do odczytu z zewnątrz
+            public decimal Balance => _balance;
+
+            public void Deposit(decimal amount)
+            {
+                if (amount > 0)
+                {
+                    _balance += amount;
+                }
+            }
+
+            public void Withdraw(decimal amount)
+            {
+                if (amount > _balance)
+                {
+                    throw new InvalidOperationException("Lack of funds");
+                }
+                else
+                {
+                    _balance -= amount;
+                }
+            }
+        }
+
+        public class Employee1
+        {
+            public string Name { get; set; }
+            public string Dept { get; set; }
+            public decimal Salary { get; set; }
+        }
+
+        public void Logic16()
+        {
+            var employees = new List<Employee1> {
+                new Employee1 { Name = "Anna", Dept = "IT", Salary = 9000 },
+                new Employee1 { Name = "Bartek", Dept = "HR", Salary = 5000 },
+                new Employee1 { Name = "Cezary", Dept = "IT", Salary = 11000 },
+                new Employee1 { Name = "Daria", Dept = "HR", Salary = 6000 }
+            };
+
+            var query = employees.GroupBy(x => x.Dept).Select(group => new { DeptName = group.Key, AvgSalary = group.Average(x => x.Salary) }).Where(x => x.AvgSalary > 7000).ToList();
+        }
     }
 }
