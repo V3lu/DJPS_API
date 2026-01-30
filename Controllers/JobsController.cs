@@ -926,5 +926,33 @@ namespace AJPS_API.Controllers
 
             var query = employees.GroupBy(x => x.Dept).Select(group => new { DeptName = group.Key, AvgSalary = group.Average(x => x.Salary) }).Where(x => x.AvgSalary > 7000).ToList();
         }
+
+        public interface IMessageService
+        {
+            void SendMessage(string text);
+        }
+
+        public class SmsService : IMessageService
+        {
+            public void SendMessage(string text)
+            {
+                Console.WriteLine(text);
+            }
+        }
+
+        public class NotificationManager
+        {
+            private readonly IMessageService _service;
+
+            public NotificationManager(IMessageService messageService)
+            {
+                this._service = messageService;
+            }
+
+            public void Notify(string msg)
+            {
+                _service.SendMessage(msg);
+            }
+        }
     }
 }
