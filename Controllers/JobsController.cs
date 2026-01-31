@@ -954,5 +954,46 @@ namespace AJPS_API.Controllers
                 _service.SendMessage(msg);
             }
         }
+
+        public class SmokeEventArgs : EventArgs
+        {
+            public string Location { get; set; }
+        }
+
+        public class SmokeDetector
+        {
+            public event EventHandler<SmokeEventArgs> OnSmokeDetected;
+
+            public void DetectSmoke(string location)
+            {
+                Console.WriteLine($"Czujnik w {location} wykrył dym!");
+                // 2. TODO: Odpal zdarzenie (pamiętaj o sprawdzeniu czy nie jest nullem!)
+                if (!string.IsNullOrEmpty(location))
+                {
+                    OnSmokeDetected?.Invoke(this, new SmokeEventArgs { Location = "Balkon" });
+                }
+            }
+        }
+
+        public static void StringExtention(this string context)
+        {
+            Console.WriteLine(context);
+        }
+
+        public record Product(string Name, string Category, decimal Price);
+
+        public void Logic17()
+        {
+            var products = new List<Product> {
+                new Product("Milk", "Grocery", 3.50m),
+                new Product("Bread", "Grocery", 2.10m),
+                new Product("Cheese", "Grocery", 5.00m),
+                new Product("Hammer", "Tools", 15.00m),
+                new Product("Saw", "Tools", 20.00m)
+            };
+
+            var query = products.GroupBy(x => x.Category).Where(x => x.Count() > 2).ToDictionary(x => x.Key, x => x.Count());
+        }
+
     }
 }
