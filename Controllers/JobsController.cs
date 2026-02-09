@@ -1047,5 +1047,10 @@ namespace AJPS_API.Controllers
             }
             return "";
         }
+
+        public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue valueIfMissing)
+        {
+            return dict.ContainsKey(key) ? dict[key] : dict[key] = valueIfMissing;
+        }
     }
 }
