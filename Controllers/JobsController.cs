@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.IO;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace AJPS_API.Controllers
 {
@@ -995,5 +996,25 @@ namespace AJPS_API.Controllers
             var query = products.GroupBy(x => x.Category).Where(x => x.Count() > 2).ToDictionary(x => x.Key, x => x.Count());
         }
 
+        public static bool IsValid(string password)
+        {
+            if(string.IsNullOrEmpty(password)) return false;
+
+            string pattern = @"^(?=.*[A-Z])(?=.*\d)\S{8,}$";
+
+            return Regex.IsMatch(password, pattern);
+        }
+
+        public static List<int> GetDuplicates(List<int> numbers)
+        {
+            return numbers.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).ToList();
+        }
+
+        public static string FormatName(string rawName)
+        {
+            // TODO: Zaimplementuj logikę
+            // Przykład: "  jAn kowalski  " -> "Jan Kowalski"
+            return string.Empty;
+        }
     }
 }
