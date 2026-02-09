@@ -1012,9 +1012,40 @@ namespace AJPS_API.Controllers
 
         public static string FormatName(string rawName)
         {
-            // TODO: Zaimplementuj logikę
-            // Przykład: "  jAn kowalski  " -> "Jan Kowalski"
-            return string.Empty;
+            StringBuilder sb = new StringBuilder();
+            string rawNameSmall = rawName.Trim().ToLower();
+            sb.Append(rawNameSmall[0].ToString().ToUpper());
+            sb.Append(rawName.Substring(1).ToLower());
+            return sb.ToString();
+        }
+
+        public record User2(int Id, string Name);
+        public record Order(int UserId, decimal Amount);
+
+        public void GetTopSpenders()
+        {
+            var users = new List<User2> { new(1, "Jan"), new(2, "Ania") };
+            var orders = new List<Order> { new(1, 50), new(1, 70), new(2, 30) };
+
+            var query = users.Join(orders, user => user.Id, order => order.UserId, (user, order) => new { user, order }).GroupBy(x => x.user).Select(group => new { Username = group.Key.Name, TotalSpent = group.Sum(x => x.order.Amount) }).Where(x => x.TotalSpent > 100).ToList();
+        }
+
+        public async Task<string> SafeDownloadAsync()
+        {
+            int counter = 0;
+            while(true)
+            {
+                try
+                {
+                    return await PobierzDaneAsync();
+                }
+                catch(Exception ex)
+                {
+                    counter++;
+                    if (counter == 2) break;
+                }
+            }
+            return "";
         }
     }
 }
