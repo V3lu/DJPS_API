@@ -1052,5 +1052,45 @@ namespace AJPS_API.Controllers
         {
             return dict.ContainsKey(key) ? dict[key] : dict[key] = valueIfMissing;
         }
+
+        public class Box1<T>
+        {
+            private T _content;
+
+            public void Add(T item)
+            {
+                _content = item;
+            }
+
+            public T GetContent()
+            {
+                return _content;
+            }
+        }
+
+        public class User3
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+        }
+
+        public static bool ValidateUser(User3 user) => !string.IsNullOrWhiteSpace(user.Name) && user.Age > 17 && user.Age < 100;
+
+        public List<string> GetValidUserNames(List<User3> users)
+        {
+            return users.Where(x => ValidateUser(x)).Select(x => x.Name).OrderBy(x => x).ToList();
+        }
+
+        public static bool HasAnyNull<T>(List<T> list) where T : class => list.Any(x => x == null);
+
+        public async Task<string> MakeCoffeeAsync()
+        {
+            Console.WriteLine("Mielenie kawy...");
+
+            await Task.Delay(3000);
+
+            Console.WriteLine("Kawa gotowa!");
+            return "Cappuccino";
+        }
     }
 }
