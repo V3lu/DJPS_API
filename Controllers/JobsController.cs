@@ -1092,5 +1092,49 @@ namespace AJPS_API.Controllers
             Console.WriteLine("Kawa gotowa!");
             return "Cappuccino";
         }
+
+        public class Order1
+        {
+            public int Id { get; set; }
+            public decimal TotalValue { get; set; }
+            public bool IsPremiumClient { get; set; }
+        }
+
+        public void Logic18()
+        {
+            var orders = new List<Order1>
+            {
+                new Order1 { Id = 1, TotalValue = 100, IsPremiumClient = true },
+                new Order1 { Id = 2, TotalValue = 50, IsPremiumClient = false },
+                new Order1 { Id = 3, TotalValue = 250, IsPremiumClient = true }
+            };
+
+            decimal query = orders.Where(x => x.IsPremiumClient).Sum(x => x.TotalValue);
+
+        }
+
+        public class UserDto
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        public record UserDto1(string Firstname, string LastName);
+
+        public List<decimal> GetTopExpenses(List<decimal> transactions)
+        {
+            List<UserDto> dtos = new List<UserDto>
+            {
+                new UserDto { FirstName = "da", LastName = "dsa"},
+                new UserDto { LastName = "dsa", FirstName = "dsadand"}
+            };
+
+            List<UserDto1> users = new List<UserDto1>
+            {
+                new(Firstname: "dsada", LastName: "dsa")
+            };
+            return transactions.Where(x => x < 0).Select(x => Math.Abs(x)).OrderByDescending(x => x).ToList();
+                
+        }
     }
 }
